@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
+                // Define el tema principal de la aplicación
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color.White
@@ -48,8 +49,10 @@ data class Recipe(val name: String, val imageUrl: String)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeListScreen() {
+    // Variables de estado para el nombre y URL de la receta
     var recipeName by remember { mutableStateOf(TextFieldValue()) }
     var imageUrl by remember { mutableStateOf(TextFieldValue()) }
+    // Lista mutable para almacenar las recetas
     val recipeList = remember { mutableStateListOf<Recipe>() }
 
     Column(
@@ -57,6 +60,7 @@ fun RecipeListScreen() {
             .padding(16.dp)
             .fillMaxSize()
     ) {
+        // Título de la pantalla
         Text(
             text = "Recetas de Cocina",
             style = TextStyle(
@@ -66,6 +70,7 @@ fun RecipeListScreen() {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
+        // Entradas para el nombre y URL de la receta
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,6 +92,7 @@ fun RecipeListScreen() {
                     .padding(bottom = 8.dp),
                 label = { Text("URL de la imagen") }
             )
+            // Botón para agregar una nueva receta
             Button(
                 onClick = {
                     if (recipeName.text.isNotBlank() && imageUrl.text.isNotBlank()) {
@@ -101,11 +107,14 @@ fun RecipeListScreen() {
             }
         }
 
+        // Columna de desplazamiento perezoso (LazyColumn) para mostrar la lista de recetas
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
             items(recipeList) { recipe ->
+                // Llama a la función que crea la tarjeta de receta
                 RecipeCard(recipe, onDeleteRecipe = { deletedRecipe ->
+                    // Elimina la receta de la lista al hacer clic en el botón "Eliminar"
                     recipeList.remove(deletedRecipe)
                 })
             }
@@ -115,6 +124,7 @@ fun RecipeListScreen() {
 
 @Composable
 fun RecipeCard(recipe: Recipe, onDeleteRecipe: (Recipe) -> Unit) {
+    // Tarjeta que muestra la imagen, nombre de la receta y botón de eliminación
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -123,6 +133,7 @@ fun RecipeCard(recipe: Recipe, onDeleteRecipe: (Recipe) -> Unit) {
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
+            // Muestra la imagen de la receta
             Image(
                 painter = rememberImagePainter(data = recipe.imageUrl),
                 contentDescription = null,
@@ -132,6 +143,7 @@ fun RecipeCard(recipe: Recipe, onDeleteRecipe: (Recipe) -> Unit) {
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(4.dp))
+            // Muestra el nombre de la receta
             Text(
                 text = recipe.name,
                 style = LocalTextStyle.current.copy(
@@ -142,6 +154,7 @@ fun RecipeCard(recipe: Recipe, onDeleteRecipe: (Recipe) -> Unit) {
                     .fillMaxWidth()
                     .wrapContentHeight()
             )
+            // Botón para eliminar la receta
             Button(
                 onClick = { onDeleteRecipe(recipe) },
                 modifier = Modifier
