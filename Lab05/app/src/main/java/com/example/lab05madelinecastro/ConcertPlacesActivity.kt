@@ -1,5 +1,10 @@
 package com.example.lab05madelinecastro
 
+/* Madeline Nahomy Castro Morales
+* Laboratorio 05
+* Creacion de pantallas de concierto con Compose
+* Pantalla 2 */
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,10 +39,12 @@ fun ConcertPlacesList() {
             contentPadding = PaddingValues(10.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
+            // Bloques donde se encuentran los conciertos
             items(concerts) { concert ->
                 ConcertBlock(concert)
 
                 Spacer(modifier = Modifier.height(15.dp))
+                // Barra que divide los elementos
                 Divider(
                     color = Color.Gray,
                     thickness = 1.dp,
@@ -53,10 +60,9 @@ fun ConcertBlock(concert: Concert) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start
     ) {
-        // Espaciado en el lado izquierdo
         Spacer(modifier = Modifier.width(1.dp))
 
-        // Círculo con color y letra "A"
+        // Círculo con color y letra "A" al lado izquierdo
         Box(
             modifier = Modifier
                 .size(50.dp)
@@ -65,6 +71,7 @@ fun ConcertBlock(concert: Concert) {
             contentAlignment = Alignment.Center
         ) {
             Text(
+                // Texto dentro del circulo
                 text = "A",
                 fontSize = 25.sp,
                 color = Color(0xFF3A2F71),
@@ -72,22 +79,24 @@ fun ConcertBlock(concert: Concert) {
             )
         }
 
-        Spacer(modifier = Modifier.width(10.dp))  // Espacio entre la imagen y el texto
+        Spacer(modifier = Modifier.width(10.dp))  // Espacio entre el circulo y el texto
 
-        // Texto del concierto y el lugar al lado de la imagen
+        // Texto del concierto y el lugar al lado de la circulo
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start,  // Alineado a la izquierda
+            horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
                 .align(Alignment.CenterVertically)
         ) {
             Text(
+                // Informaciond de conciertos
                 text = concert.name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
+            // Informacion de lugares
             Text(
                 text = concert.location,
                 fontSize = 16.sp
@@ -111,6 +120,7 @@ class ConcertPlacesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            // Muestra la lista de lugares de conciertos
             ConcertPlacesList()
         }
     }

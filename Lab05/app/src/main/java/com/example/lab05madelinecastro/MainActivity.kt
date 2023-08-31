@@ -1,5 +1,10 @@
 package com.example.lab05madelinecastro
 
+/* Madeline Nahomy Castro Morales
+* Laboratorio 05
+* Creacion de pantallas de concierto con Compose
+* Pantalla 1 */
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,6 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,22 +47,33 @@ class MainActivity : ComponentActivity() {
                             .padding(start = 1.dp),
                         horizontalAlignment = Alignment.Start
                     ) {
-                        // Encabezado de la aplicacion
+                        // Encabezado de la aplicación
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(Color(0xFFE5DDFB)) // Cambiar color de fondo del encabezado
                         ) {
-                            Text(
-                                text = "TodoEventos",
-                                style = TextStyle(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 25.sp,
-                                    color = MaterialTheme.colorScheme.onSurface // color del texto
-                                ),
+                            Row(
                                 modifier = Modifier
                                     .padding(16.dp)
-                            )
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "TodoEventos",
+                                    style = TextStyle(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 25.sp,
+                                        color = MaterialTheme.colorScheme.onSurface // color del texto
+                                    )
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.MoreVert,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
                         }
                         // Mostrar lista de conciertos guardados
                         ConcertsList()
@@ -73,10 +91,10 @@ data class Concert(val name: String, val location: String, val imageRes: Int)
 @Composable
 fun getSampleConcerts(): List<Concert> {
     return listOf(
-        Concert("Concierto 1", "Lugar 1", R.drawable.concierto),
-        Concert("Concierto 2", "Lugar 2", R.drawable.concierto2),
-        Concert("Concierto 3", "Lugar 3", R.drawable.concierto3),
-        Concert("Concierto 4", "Lugar 4", R.drawable.concierto4),
+        Concert("The Home Team", "Los Angeles", R.drawable.concierto),
+        Concert("Bring Me The Horizon", "Utilita Arena Cardiff", R.drawable.concierto2),
+        Concert("Three Days Grace", "Chicago", R.drawable.concierto3),
+        Concert("Dance Gavin Dance", "Salt Lake City", R.drawable.concierto4),
     )
 }
 // Lista de conciertos utilizados en "Details"
@@ -92,10 +110,10 @@ fun getDetailConcerts(): List<Concert> {
 @Composable
 fun getAllSampleConcerts(): List<Concert> {
     return listOf(
-        Concert("Concierto A", "Lugar 1", R.drawable.concierto4),
-        Concert("Concierto B", "Lugar 2", R.drawable.concierto2),
-        Concert("Concierto C", "Lugar 3", R.drawable.concierto),
-        Concert("Concierto D", "Lugar 4", R.drawable.concierto3),
+        Concert("Lauv", "Amsterdam", R.drawable.concierto4),
+        Concert("Disturbed", "New York", R.drawable.concierto2),
+        Concert("The Neighbourhood", "Chicago", R.drawable.concierto),
+        Concert("Cuarteto de Nos", "La Concha Acústica", R.drawable.concierto3),
     )
 }
 
@@ -111,7 +129,7 @@ fun ConcertsList() {
     ) {
         item {
             Text("Your Favorites",
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 color = Color.Black)
             Spacer(modifier = Modifier.height(3.dp))
             Spacer(modifier = Modifier.height(10.dp))
@@ -134,7 +152,7 @@ fun ConcertsList() {
         }
         // Seccion de todos los conciertos
         item {
-            Text("All Concerts", fontSize = 20.sp)
+            Text("All Concerts", fontSize = 22.sp)
             Spacer(modifier = Modifier.height(10.dp))
         }
 
@@ -189,13 +207,13 @@ fun ConcertCard(concert: Concert) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = concert.name,
-                    fontSize = 18.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 10.dp, top = 5.dp, bottom = 10.dp)  // Añadir padding al inicio (izquierda)
                 )
                 Text(
                     text = concert.location,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     modifier = Modifier.padding(start = 10.dp, top = 5.dp, bottom = 10.dp)  // Añadir padding al inicio (izquierda)
                 )
             }
