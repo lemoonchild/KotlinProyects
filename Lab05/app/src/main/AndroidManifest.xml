@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Lab05MadelineCastro"
         >
         <activity
-            android:name=".MainActivity"
+            android:name=".ConcertProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.Lab05MadelineCastro">
             <intent-filter>
